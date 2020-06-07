@@ -9,7 +9,7 @@ print('Now start extracting data from files on webpage')
 os.system('python scrapper.py years')
 
 print('Create DB to Upload Data')
-os.system('python CreateDB.py')
+os.system('python createDB.py')
 
 print('Upload Data to tables')
 os.system('python uploadDB.py 1')
