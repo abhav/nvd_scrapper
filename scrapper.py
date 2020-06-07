@@ -4,8 +4,9 @@ import io
 import json
 import pandas as pd
 import sys
+# print(sys.argv)
 
-fp = open(str(sys.argv) + ".txt", "r")
+fp = open(str(sys.argv[1]) + ".txt", "r")
 fl = fp.readlines()
 fp.close()
 
@@ -15,7 +16,7 @@ cpe_data = []
 cvss_data = []
 
 for filename in fl:
-    print('Extraxting from: ' + filename)
+    print('Extracting from: ' + filename)
     r_zip_file = requests.get("https://nvd.nist.gov/feeds/json/cve/1.1/" + filename[:-1], stream=True)
     zip_file_bytes = io.BytesIO()
 
@@ -33,7 +34,7 @@ for filename in fl:
         try:
             cve_description = CVE_Item['cve']['description']['description_data'][0]['value']
         except:
-            cve_description = ''
+            cve_description = 'NULL'
 
         # CPE Version range
         try:
@@ -44,19 +45,19 @@ for filename in fl:
                         try:
                             versionStartExcluding = cpe_match['versionStartExcluding']
                         except:
-                            versionStartExcluding = ''
+                            versionStartExcluding = 'NULL'
                         try:
                             versionStartIncluding = cpe_match['versionStartIncluding']
                         except:
-                            versionStartIncluding = ''
+                            versionStartIncluding = 'NULL'
                         try:
                             versionEndExcluding = cpe_match['versionEndExcluding']
                         except:
-                            versionEndExcluding = ''
+                            versionEndExcluding = 'NULL'
                         try:
                             versionEndIncluding = cpe_match['versionEndIncluding']
                         except:
-                            versionEndIncluding = ''
+                            versionEndIncluding = 'NULL'
                         cpe_uri = cpe_match['cpe23Uri']
                         product_list = cpe_uri.split(':')
                         product_data.append([cve_id, product_list[3], product_list[4], product_list[5]])
@@ -70,19 +71,19 @@ for filename in fl:
                             try:
                                 versionStartExcluding = cpe_match['versionStartExcluding']
                             except:
-                                versionStartExcluding = ''
+                                versionStartExcluding = 'NULL'
                             try:
                                 versionStartIncluding = cpe_match['versionStartIncluding']
                             except:
-                                versionStartIncluding = ''
+                                versionStartIncluding = 'NULL'
                             try:
                                 versionEndExcluding = cpe_match['versionEndExcluding']
                             except:
-                                versionEndExcluding = ''
+                                versionEndExcluding = 'NULL'
                             try:
                                 versionEndIncluding = cpe_match['versionEndIncluding']
                             except:
-                                versionEndIncluding = ''
+                                versionEndIncluding = 'NULL'
                             cpe_uri = cpe_match['cpe23Uri']
                             product_list = cpe_uri.split(':')
                             product_data.append([cve_id, product_list[3], product_list[4], product_list[5]])
@@ -96,28 +97,32 @@ for filename in fl:
         try:
             cve_cvss3_score = CVE_Item['impact']['baseMetricV3']['cvssV3']['baseScore']
         except:
-            cve_cvss3_score = ''
+            cve_cvss3_score = 'NULL'
 
         # if impact V2 exists
         try:
             cve_cvss2_score = CVE_Item['impact']['baseMetricV2']['cvssV2']['baseScore']
         except:
-            cve_cvss2_score = ''
+            cve_cvss2_score = 'NULL'
 
         # if publish date
         try:
             cve_publishedDate = CVE_Item['publishedDate']
         except:
-            cve_publishedDate = ''
+            cve_publishedDate = 'NULL'
 
         # if modifed date
         try:
             cve_lastModifiedDate = CVE_Item['lastModifiedDate']
         except:
-            cve_lastModifiedDate = ''
+            cve_lastModifiedDate = 'NULL'
 
         nvd_data.append([cve_id, cve_description, cve_publishedDate, cve_lastModifiedDate])
-        cvss_data.append([cve_id, cve_cvss3_score, cve_cvss2_score])
+        if cve_cvss2_score != 'NULL':
+            cvss_data.append([cve_id, cve_cvss2_score, 'cvss2'])
+        if cve_cvss3_score != 'NULL':
+            cvss_data.append([cve_id, cve_cvss3_score, 'cvss3'])
+    print('Extracting complete from: ' + filename)
 
 # Remove Duplicate Rows and store in csv
 my_df = pd.DataFrame(nvd_data)
