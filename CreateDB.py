@@ -1,9 +1,11 @@
 import psycopg2
+from singleExecutor import sql_conn
 
-conn = psycopg2.connect("host=localhost dbname=Synopsys user=postgres password=1234")
+conn = psycopg2.connect(sql_conn)
 
 cur = conn.cursor()
 
+print('Creating NVD Table')
 cur.execute("""CREATE TABLE IF NOT EXISTS nvd(
     id text ,
     description text,
@@ -12,6 +14,9 @@ cur.execute("""CREATE TABLE IF NOT EXISTS nvd(
     CONSTRAINT nvd_pkey PRIMARY KEY (id)
     )
     """)
+print('Created NVD Table')
+
+print('Creating cvss Table')
 cur.execute("""CREATE TABLE IF NOT EXISTS cvss
     (
     id text,
@@ -23,7 +28,9 @@ cur.execute("""CREATE TABLE IF NOT EXISTS cvss
         ON DELETE NO ACTION
         NOT VALID
     )""")
+print('Created cvss Table')
 
+print('Creating cpr_version Table')
 cur.execute("""CREATE TABLE IF NOT EXISTS cpe_version
     (
     id text,
@@ -38,7 +45,9 @@ cur.execute("""CREATE TABLE IF NOT EXISTS cpe_version
         ON DELETE NO ACTION
         NOT VALID
     )""")
+print('Created cpe_version Table')
 
+print('Creating product Table')
 cur.execute("""CREATE TABLE IF NOT EXISTS product
     (
     id text,
@@ -51,5 +60,6 @@ cur.execute("""CREATE TABLE IF NOT EXISTS product
         ON DELETE NO ACTION
         NOT VALID
     )""")
+print('Created product Table')
 
 conn.commit()

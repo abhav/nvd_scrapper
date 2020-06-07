@@ -10,6 +10,6 @@ fp.close()
 
 # temporary File
 ft = open("recent.txt","w+")
-for filename in re.findall("nvdcve-1.1-[a-z]*\.json\.zip",r.text):
+for filename in re.findall("nvdcve-1.1-M[a-z]*\.json\.zip",r.text):
     ft.write(str(filename) + "\n")
 ft.close()

@@ -122,7 +122,7 @@ for filename in fl:
             cvss_data.append([cve_id, cve_cvss2_score, 'cvss2'])
         if cve_cvss3_score != 'NULL':
             cvss_data.append([cve_id, cve_cvss3_score, 'cvss3'])
-    print('Extracting complete from: ' + filename)
+    print('Extraction complete from: ' + filename)
 
 # Remove Duplicate Rows and store in csv
 my_df = pd.DataFrame(nvd_data)
