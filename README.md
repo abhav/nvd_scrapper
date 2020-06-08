@@ -4,6 +4,7 @@
 Pre-Requisite:
 
 Libraries Required: requests, re, zipfile, json, pandas, psycopg2, csv
+
 Software/ Environment Required: Postgres, Python 3.x
 
 ------------------------------------------------------------------------------------
@@ -68,26 +69,26 @@ Table product
 
 Note:
 These 23 records were not following the configuration cpe pattern of node -> child for operator 'AND'
-Error in cpe Extraction from cve_id: CVE-2017-14023
-Error in cpe Extraction from cve_id: CVE-2020-10257
-Error in cpe Extraction from cve_id: CVE-2019-12216
-Error in cpe Extraction from cve_id: CVE-2019-12217
-Error in cpe Extraction from cve_id: CVE-2019-12218
-Error in cpe Extraction from cve_id: CVE-2019-12219
-Error in cpe Extraction from cve_id: CVE-2019-12220
-Error in cpe Extraction from cve_id: CVE-2019-12221
-Error in cpe Extraction from cve_id: CVE-2019-12395
-Error in cpe Extraction from cve_id: CVE-2019-18251
-Error in cpe Extraction from cve_id: CVE-2019-18426
-Error in cpe Extraction from cve_id: CVE-2019-18937
-Error in cpe Extraction from cve_id: CVE-2019-18939
-Error in cpe Extraction from cve_id: CVE-2018-10511
-Error in cpe Extraction from cve_id: CVE-2018-1258
-Error in cpe Extraction from cve_id: CVE-2015-1188
-Error in cpe Extraction from cve_id: CVE-2015-8875
-Error in cpe Extraction from cve_id: CVE-2014-7874
-Error in cpe Extraction from cve_id: CVE-2014-8756
-Error in cpe Extraction from cve_id: CVE-2013-4412
-Error in cpe Extraction from cve_id: CVE-2012-4838
-Error in cpe Extraction from cve_id: CVE-2009-2273
-Error in cpe Extraction from cve_id: CVE-2008-6714
+ - Error in cpe Extraction from cve_id: CVE-2017-14023
+ - Error in cpe Extraction from cve_id: CVE-2020-10257
+ - Error in cpe Extraction from cve_id: CVE-2019-12216
+ - Error in cpe Extraction from cve_id: CVE-2019-12217
+ - Error in cpe Extraction from cve_id: CVE-2019-12218
+ - Error in cpe Extraction from cve_id: CVE-2019-12219
+ - Error in cpe Extraction from cve_id: CVE-2019-12220
+ - Error in cpe Extraction from cve_id: CVE-2019-12221
+ - Error in cpe Extraction from cve_id: CVE-2019-12395
+ - Error in cpe Extraction from cve_id: CVE-2019-18251
+ - Error in cpe Extraction from cve_id: CVE-2019-18426
+ - Error in cpe Extraction from cve_id: CVE-2019-18937
+ - Error in cpe Extraction from cve_id: CVE-2019-18939
+ - Error in cpe Extraction from cve_id: CVE-2018-10511
+ - Error in cpe Extraction from cve_id: CVE-2018-1258
+ - Error in cpe Extraction from cve_id: CVE-2015-1188
+ - Error in cpe Extraction from cve_id: CVE-2015-8875
+ - Error in cpe Extraction from cve_id: CVE-2014-7874
+ - Error in cpe Extraction from cve_id: CVE-2014-8756
+ - Error in cpe Extraction from cve_id: CVE-2013-4412
+ - Error in cpe Extraction from cve_id: CVE-2012-4838
+ - Error in cpe Extraction from cve_id: CVE-2009-2273
+ - Error in cpe Extraction from cve_id: CVE-2008-6714
