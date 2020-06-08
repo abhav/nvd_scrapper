@@ -59,12 +59,12 @@ Table cpe
  - versionEndIncluding text,
  - CONSTRAINT cve_id FOREIGN KEY (id)
 
-
+(cpe:2.3:a:dan_bernstein:qmail:*:*:*:*:*:*:*:*)
 Table product
- - id text ,
- - type text,
- - subType text,
- - version text,
+ - id text , 
+ - type text, (dan_bernstein)
+ - subType text, (qmail)
+ - version text, (*)
  - CONSTRAINT cve_id FOREIGN KEY (id)
 
 Note:
