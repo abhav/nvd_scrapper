@@ -3,30 +3,30 @@
 Software/ Environment Required: Postgres, Python 3.x
 
 ------------------------------------------------------------------------------------
---Set DB string in configDB.py
-
-From  -"host=localhost dbname=Synopsys user=postgres password=1234"
-To - Appropriate in your system
 
 --Data Models Created through createDB.py therefore no separate DLL
 
 ------------------------------------------------------------------------------------
 Steps to run:
+1. Set sql_conn string in configDB.py
+From  -"host=localhost dbname=Synopsys user=postgres password=1234"
+To - Appropriate in your system
 
-python singleExecutor.py
+2. run command : python singleExecutor.py
 
 Live Queries
-# What are the top 10 most vulnerable products? (Based on the number of CVEs associated with them on a version basis.)
+### What are the top 10 most vulnerable products? (Based on the number of CVEs associated with them on a version basis.)
 """ SELECT type, subtype, version, COUNT(id) AS most_vulnerable
     FROM     product
     GROUP BY type, subtype, version
     ORDER BY most_vulnerable DESC
     LIMIT    10;"""
 
-# Show the breakdown of the number of CVEs per whole-number score (round up)
+### Show the breakdown of the number of CVEs per whole-number score (round up)
 """ CREATE TEMP TABLE temp1 AS
     SELECT id, type, CEIL(score) as Rounded_Score 
         FROM  cvss;
+	
     SELECT type, Rounded_Score, COUNT(id) AS NoOfCVE
         FROM temp1
         GROUP BY Rounded_Score, type
@@ -35,7 +35,7 @@ Live Queries
 
 
 
-Assumptions
+	Assumptions
 	-- Data for CPE/ version range and product.
 	-- In live query for most vulnerable product - it is assumed from core product to version basis for example - Google:Android:8.0 and not Android:8.0. It can be simply be changed by changing GROUP BY column in query.
 	-- In live query to show the breakdown of the number of CVEs per whole-number score (round up) - cvss2 and cvss3 is considered different, and therefore 20 records are obtained.
@@ -85,32 +85,32 @@ Table product
 
 Note:
 
-1. Indices can be created o speed up execution. For example if we add indices to find the most vulnerable products
+1. Indices can be created to speed up execution. For example if we add indices to find the most vulnerable products
 
---CREATE INDEX product_type ON product(type);
+	--CREATE INDEX product_type ON product(type);
 
---DROP INDEX product_type;
+	--DROP INDEX product_type;
 
-CREATE INDEX product_type ON product(type, subtype, version );
+	CREATE INDEX product_type ON product(type, subtype, version );
 
-EXPLAIN ANALYZE SELECT type, subtype, version, COUNT(id) AS most_vulnerable    
-	FROM     product    
-	GROUP BY type, subtype, version    
-	ORDER BY most_vulnerable DESC    
-	LIMIT    10;
+	EXPLAIN ANALYZE SELECT type, subtype, version, COUNT(id) AS most_vulnerable    
+		FROM     product    
+		GROUP BY type, subtype, version    
+		ORDER BY most_vulnerable DESC    
+		LIMIT    10;
 
-With No indices:
-- Successfully run. Total query runtime: 3 secs 236 msec.
+	With No indices:
+	- Successfully run. Total query runtime: 3 secs 236 msec.
 
-With type as indice: (Not significant improvement)
-- Successfully run. Total query runtime: 3 secs 19 msec.
+	With type as indice: (Not significant improvement)
+	- Successfully run. Total query runtime: 3 secs 19 msec.
 
-With multiple indices: (significant improvement))
-- Successfully run. Total query runtime: 1 secs 333 msec.
+	With multiple indices: (significant improvement))
+	- Successfully run. Total query runtime: 1 secs 333 msec.
 
-Similarly, we can make indices for query 2: by column name - Rounded_Score abd type
+	Similarly, we can make indices for query 2: by column name - Rounded_Score abd type
 
-Decision to add indices is based on user requirements(balancing space vs time).
+	Decision to add indices is based on user requirements(balancing space vs time).
 
 2. These 23 records were not following the configuration cpe pattern of node -> child for operator 'AND'
  - Error in cpe Extraction from cve_id: CVE-2017-14023
