@@ -1,0 +1,1 @@
+Libraries Used:  requests, re, zipfile, json, pandas, psycopg2, csv
