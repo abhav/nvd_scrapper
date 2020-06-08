@@ -68,7 +68,35 @@ Table product
  - CONSTRAINT cve_id FOREIGN KEY (id)
 
 Note:
-These 23 records were not following the configuration cpe pattern of node -> child for operator 'AND'
+
+1. Indices can be created o speed up execution. For example if we add indices to find the most vulnerable products
+
+--CREATE INDEX product_type ON product(type);
+
+--DROP INDEX product_type;
+
+CREATE INDEX product_type ON product(type, subtype, version );
+
+EXPLAIN ANALYZE SELECT type, subtype, version, COUNT(id) AS most_vulnerable     
+	FROM     product     
+	GROUP BY type, subtype, version     
+	ORDER BY most_vulnerable DESC     
+	LIMIT    10;	
+	
+With No indices:
+- Successfully run. Total query runtime: 3 secs 236 msec. 
+
+With type as indice: (Not significant improvement)
+- Successfully run. Total query runtime: 3 secs 19 msec.
+
+With multiple indices: (significant improvement))
+- Successfully run. Total query runtime: 1 secs 333 msec.
+
+Similarly, we can make indices for query 2: by column name - Rounded_Score abd type
+
+Decision to add indices is based on user requirements(balancing space vs time). 
+
+2. These 23 records were not following the configuration cpe pattern of node -> child for operator 'AND'
  - Error in cpe Extraction from cve_id: CVE-2017-14023
  - Error in cpe Extraction from cve_id: CVE-2020-10257
  - Error in cpe Extraction from cve_id: CVE-2019-12216
