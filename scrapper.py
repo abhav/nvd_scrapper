@@ -13,6 +13,7 @@ nvd_data = []
 product_data = []
 cpe_data = []
 cvss_data = []
+unique_cve = set()
 
 for filename in fl:
     print('Extracting from: ' + filename)
@@ -29,6 +30,9 @@ for filename in fl:
 
     for CVE_Item in json_data['CVE_Items']:
         cve_id = CVE_Item['cve']['CVE_data_meta']['ID']  # get CVE
+        if cve_id in unique_cve:
+            continue
+        unique_cve.add(cve_id)
         # if description exists
         try:
             cve_description = CVE_Item['cve']['description']['description_data'][0]['value']
@@ -90,7 +94,7 @@ for filename in fl:
                                 [cve_id, cpe_uri, versionStartExcluding, versionStartIncluding, versionEndExcluding,
                                  versionEndIncluding])
         except:
-            print('Error in: ' + cve_id)
+            print('Error in cpe Extraction from cve_id: ' + cve_id)
 
         # if impact V3 exists
         try:
