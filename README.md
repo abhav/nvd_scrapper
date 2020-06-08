@@ -8,7 +8,7 @@ Libraries Required: requests, re, zipfile, json, pandas, psycopg2, csv
 Software/ Environment Required: Postgres, Python 3.x
 
 ------------------------------------------------------------------------------------
---Set DB string in singleExecutor
+--Set DB string in configDB.py
 
 From  -"host=localhost dbname=Synopsys user=postgres password=1234"
 To - Appropriate in your system
