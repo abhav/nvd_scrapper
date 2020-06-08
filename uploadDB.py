@@ -1,7 +1,7 @@
 import psycopg2
 import csv
 import sys
-from singleExecutor import sql_conn
+from configDB import sql_conn
 
 conn = psycopg2.connect(sql_conn)
 

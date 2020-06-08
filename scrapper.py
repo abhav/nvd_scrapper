@@ -4,7 +4,6 @@ import io
 import json
 import pandas as pd
 import sys
-# print(sys.argv)
 
 fp = open(str(sys.argv[1]) + ".txt", "r")
 fl = fp.readlines()

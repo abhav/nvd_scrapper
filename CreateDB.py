@@ -1,5 +1,5 @@
 import psycopg2
-from singleExecutor import sql_conn
+from configDB import sql_conn
 
 conn = psycopg2.connect(sql_conn)
 
