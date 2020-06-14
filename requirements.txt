@@ -1,1 +1,7 @@
-Libraries Used:  requests, re, zipfile, json, pandas, psycopg2, csv
+pandas
+requests
+re
+zipfile
+json
+psycopg2
+csv

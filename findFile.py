@@ -1,11 +1,11 @@
-import requests
 import re
 
-r = requests.get('https://nvd.nist.gov/vuln/data-feeds#JSON_FEED')
-# permanent File
-fp = open("years.txt","w+")
-for filename in re.findall("nvdcve-1.1-m[a-z]*\.json\.zip",r.text):
-    fp.write(str(filename) + "\n")
-for filename in re.findall("nvdcve-1.1-[0-9]*\.json\.zip",r.text):
-    fp.write(str(filename) + "\n")
-fp.close()
+
+class FindFile:
+    def __init__(self, response):
+        self.response = response
+        self.files = []
+
+    def filesFound(self, ):
+        for file in re.findall("nvdcve-1.1-[a-z0-9]*\.json\.zip", self.response.text):
+            self.files.append(file)
